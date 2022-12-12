@@ -1,0 +1,3 @@
+health potion,10,health,
+lucky horseshoe,5,luck,
+magic potion,6,magic,

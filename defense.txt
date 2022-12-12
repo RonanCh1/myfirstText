@@ -1,0 +1,3 @@
+wooden shield,10,
+silk robes,15,
+diamond breastplate,20,

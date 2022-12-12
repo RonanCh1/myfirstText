@@ -1,0 +1,3 @@
+wooden staff,10,
+enchanted staff,15,
+treasured staff,20,

@@ -1,0 +1,3 @@
+wooden sword,10,
+iron sword,15,
+great sword,20,

@@ -1,6 +1,6 @@
 import random
-import sys
 import time
+import math
 from pprint import pprint
 
 
@@ -122,11 +122,56 @@ def enemy_generator(level_boss):
 
     return Boss(health, attack, special, chance , adjective+ " "+ animals, ultimateMove)
 
+
+
+
+def create_class():
+  response = input("Are you more Strat(1) or more of a Warrior(2)...")
+  while response != "1" and response != "2":
+   print("Invalid")
+   response = input("Are you more Strat(1) or more of a Warrior(2)...")
+  if response == "1":
+    charAttack = 50
+    charDefense = 100
+    charStamina = 50
+  elif response == "2":
+    charAttack = 100
+    charDefense = 50
+    charStamina = 100
+  response = input("Press Enter to roll dice...")
+  time.sleep(0.2)
+  print("Rolling Dice ")
+  time.sleep(0.2)
+  charLuck = random.randint(0, 20)
+  print(f"Your Character has {charLuck} luck out of 20")
+
+  response = input("Are you more of an Marksman(1) or a magic user(2) ")
+
+  while response != "1" and response != "2":
+   print("Invalid")
+   response = input("Are you more of an Marksman(1) or a magic user(2)...")
+  if response == "1":
+    charRange = 100
+    charMana = 30
+  elif response == "2":
+    charRange = 50
+    charMana = 100
+  charName = input("What is your name stranger ")
+  print(f"Welcome {charName} ")
+
+  return (charAttack, charLuck, charRange, charDefense, charMana, charStamina, charName)
+
+#class_attribute = create_class()
+#player = Character(100, class_attribute[0], class_attribute[1], class_attribute[2], class_attribute[3], class_attribute[4], class_attribute[5], class_attribute[6])
+
+
+
+
 class Story():
     def __init__(self):
         print("Welcome Traveler")
         self.new_game()
-
+                                                                                                                                                                                                                              
     def validate(self, question, answers):
         answer = " "
         while answer not in answers:
@@ -183,49 +228,55 @@ class Story():
 
 
 #newgame = Story()          
-def create_class():
-  response = input("Are you more Strat(1) or more of a Warrior(2)...")
-  while response != "1" and response != "2":
-   print("Invalid")
-   response = input("Are you more Strat(1) or more of a Warrior(2)...")
-  if response == "1":
-    charAttack = 50
-    charDefense = 100
-    charStamina = 50
-  elif response == "2":
-    charAttack = 100
-    charDefense = 50
-    charStamina = 100
-  response = input("Press Enter to roll dice...")
-  time.sleep(0.2)
-  print("Rolling Dice ")
-  time.sleep(0.2)
-  charLuck = random.randint(0, 20)
-  print(f"Your Character has {charLuck} luck out of 20")
 
-  response = input("Are you more of an Marksman(1) or a magic user(2) ")
 
-  while response != "1" and response != "2":
-   print("Invalid")
-   response = input("Are you more of an Marksman(1) or a magic user(2)...")
-  if response == "1":
-    charRange = 100
-    charMana = 30
-  elif response == "2":
-    charRange = 50
-    charMana = 100
-  charName = input("What is your name stranger ")
-  print(f"Welcome {charName} ")
 
-  return (charAttack, charLuck, charRange, charDefense, charMana, charStamina, charName)
+def enemy_ATK(name, hitChance, attackValue, defense):
+  print(f"{name} is prepairing to attack ...")
+  hitRes = random.randint(0,10)
+  if hitChance >= hitRes:
+    print(f"{name} hits the hero. ")
+    damage = attackValue - defense
+    print(f"You stagger back losing... {damage} Health." )
+    return math.ceil(damage)
+  else:
+    print(f" The {name} Misses attack")
+    return 0
 
-class_attribute = create_class()
-player = Character(100, class_attribute[0], class_attribute[1], class_attribute[2], class_attribute[3], class_attribute[4], class_attribute[5], class_attribute[6])
+def hitChance(luck):
+  hitRes = random.randint(0, 4)
+  if luck < hitRes:
+    print("MISS")
+    return False
+  else:
+    print("You have hit the Enemy...")
+    return True
 
-level_boss = False
-en1 = enemy_generator(level_boss)
-en2 = enemy_generator(level_boss)
-en3 = enemy_generator(level_boss)
-pprint(vars(en1))
-pprint(vars(en2))
-pprint(vars(en3))
+def isDead(health):
+  if health < 1:
+    return True
+  else:
+    return False
+
+def loot(luck,genCharacter):
+  lootChance = random.randint(0,4)
+  if luck < lootChance:
+    print("Nothing droppped..")
+  else:
+    tableNumber = random.randint(0,4)
+    lootTableList = ["attack","defense","items","magic","ranged"]
+    itemType = lootTableList[tableNumber]
+    file = open(itemType+".txt", "r")
+    lines = file.readlines()
+    
+    print("The enemy has dropped a...")
+    item = random.randint(0,len(lines)-1)
+    itemLine = lines[item]
+    splitItemLine = itemLine.split(",")
+
+    itemName = splitItemLine[0]
+    itemValue = splitItemLine[1]
+    itemStat = splitItemLine[2]
+    print(itemName)
+
+  
