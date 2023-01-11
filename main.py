@@ -279,4 +279,21 @@ def loot(luck,genCharacter):
     itemStat = splitItemLine[2]
     print(itemName)
 
-  
+
+
+  dfour = 0
+  dsix = 0
+  combinedRoll = 0
+
+
+
+def RollDice(_dicetoRoll):
+  if _dicetoRoll == 4:
+    dfour = random.randint(1,4)
+  elif _dicetoRoll == 6:
+    dsix = random.randint(1,6)
+
+def Roll2D4():
+  _firstRoll = RollDice(4)
+  _secondRoll = RollDice(6)
+  _combinedRoll = _firstRoll + _secondRoll
